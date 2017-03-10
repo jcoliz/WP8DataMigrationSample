@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Todolist.Uwp.Models;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -30,6 +32,11 @@ namespace Todolist.Uwp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            using (var db = new TodoDbContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         /// <summary>

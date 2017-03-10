@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Todolist.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +23,18 @@ namespace Todolist.Uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainViewModel VM = new MainViewModel();
+
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            VM.Load();
+
+            base.OnNavigatedTo(e);
         }
     }
 }
