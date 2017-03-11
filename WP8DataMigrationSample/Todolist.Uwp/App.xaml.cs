@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Todolist.Uwp.Models;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -84,6 +86,13 @@ namespace Todolist.Uwp
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            Task.Run(async () => 
+            {
+                var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var files = await folder.GetFilesAsync();
+                var names = files.Select(x => x.Name).ToList();
+            });
         }
 
         /// <summary>
