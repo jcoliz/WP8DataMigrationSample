@@ -43,4 +43,8 @@ namespace Todolist.Portable.Models
             return item;
         }
     }
+
+    public class TodoItemList: List<TodoItem>
+    {
+    }
 }

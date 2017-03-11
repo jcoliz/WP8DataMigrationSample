@@ -10,6 +10,9 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using Todolist.Portable.Helpers;
+using System.Xml.Serialization;
+using Todolist.Portable.Models;
+using Todolist.Uwp.Models;
 
 namespace Todolist.Uwp.ViewModels
 {
@@ -199,7 +202,7 @@ namespace Todolist.Uwp.ViewModels
             {
                 IsWaiting = true;
                 AzureStorage_Initialize();
-                exists = await AzureStorage_DoesBlobExist(BlobContainer, $"{MigrationFileKey}.csv");
+                exists = await AzureStorage_DoesBlobExist(BlobContainer, $"{MigrationFileKey}.xml");
 
                 if (exists)
                     MigrationStatus = MigrationStatusEnum.Ready;
@@ -224,13 +227,26 @@ namespace Todolist.Uwp.ViewModels
             try
             {
                 IsWaiting = true;
-                var migration_output = $"Temp/{MigrationFileKey}.csv";
+                var migration_output = $"Temp/{MigrationFileKey}.xml";
+
+                // Download the migrated file
                 using (var outstream = await Filesystem_OpenFileForOverwrite(migration_output))
                 {
-                    await AzureStorage_DownloadBlob(BlobContainer, $"{MigrationFileKey}.csv", outstream);
+                    await AzureStorage_DownloadBlob(BlobContainer, $"{MigrationFileKey}.xml", outstream);
                 }
 
-                await MigrateImport(migration_output);
+                // Import the migrated file
+                using (var stream = await Filesystem_OpenFileForRead(migration_output))
+                {
+                    var xs = new XmlSerializer(typeof(TodoItemList));
+                    var list = (TodoItemList)xs.Deserialize(stream);
+
+                    using (var db = new TodoDbContext())
+                    {
+                        await db.Items.AddRangeAsync(list);
+                        db.SaveChanges();
+                    }
+                }
 
                 MigrationStatus = MigrationStatusEnum.Done;
             }
@@ -281,36 +297,31 @@ namespace Todolist.Uwp.ViewModels
 
         #region Platform Layer
 
-        private static string Setting_GetKeyValueWithDefault(string v1, string v2)
+        private static string Setting_GetKeyValueWithDefault(string k, string v)
         {
             throw new NotImplementedException();
         }
 
-        private static void Setting_SetKey(string v1, string v2)
+        private static void Setting_SetKey(string k, string v)
         {
             throw new NotImplementedException();
         }
 
-        private Task MigrateImport(string migration_output)
+        private static Task<IEnumerable<string>> Filesystem_Directory(string path)
         {
             throw new NotImplementedException();
         }
 
-        private static Task<IEnumerable<string>> Filesystem_Directory(string empty)
+        private static void Filesystem_Delete(string path)
+        {
+            throw new NotImplementedException();
+        }
+        private static Task<Stream> Filesystem_OpenFileForOverwrite(string path)
         {
             throw new NotImplementedException();
         }
 
-        private static void Filesystem_Delete(string v)
-        {
-            throw new NotImplementedException();
-        }
-        private static Task<IDisposable> Filesystem_OpenFileForOverwrite(string migration_output)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static Task<IDisposable> Filesystem_OpenFileForRead(string v)
+        private static Task<Stream> Filesystem_OpenFileForRead(string path)
         {
             throw new NotImplementedException();
         }
@@ -324,12 +335,12 @@ namespace Todolist.Uwp.ViewModels
         {
             throw new NotImplementedException();
         }
-        private Task AzureStorage_DownloadBlob(string blobContainer, string v, IDisposable outstream)
+        private Task AzureStorage_DownloadBlob(string blobContainer, string v, Stream outstream)
         {
             throw new NotImplementedException();
         }
 
-        private Task AzureStorage_UploadToBlob(string blobContainer, string v, IDisposable stream)
+        private Task AzureStorage_UploadToBlob(string blobContainer, string v, Stream stream)
         {
             throw new NotImplementedException();
         }
@@ -348,6 +359,5 @@ namespace Todolist.Uwp.ViewModels
             throw new NotImplementedException();
         }
         #endregion
-
     }
 }
