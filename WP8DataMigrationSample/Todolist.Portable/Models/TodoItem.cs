@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todolist.Uwp.Models
+namespace Todolist.Portable.Models
 {
     /// <summary>
     /// A single todo item

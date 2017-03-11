@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Todolist.Uwp"
     xmlns:m="using:Todolist.Uwp.Models"
+    xmlns:p="using:Todolist.Portable.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:DataType="m:TodoItem" x:Key="TodoItemDisplay">
+        <DataTemplate x:DataType="p:TodoItem" x:Key="TodoItemDisplay">
             <StackPanel Orientation="Horizontal">
                 <CheckBox IsChecked="{x:Bind Checked,Mode=TwoWay}" Checked="CheckBox_Checked"/>
                 <StackPanel Orientation="Vertical">

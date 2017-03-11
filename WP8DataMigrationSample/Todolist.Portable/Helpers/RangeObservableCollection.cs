@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todolist.Uwp.Helpers
+namespace Todolist.Portable.Helpers
 {
     /// <summary>
     /// This implementation improves the behaviour of the standard ObservableCollection when dealing with a large number of elements. This collection does not fire an event for each inserted element, but fires a reset event when adding elements

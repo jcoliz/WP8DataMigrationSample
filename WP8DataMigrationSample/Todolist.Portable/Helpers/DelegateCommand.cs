@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Todolist.Uwp.Helpers
+namespace Todolist.Portable.Helpers
 {
     /// <summary>
     /// A simple DelegateCommand for MVVM 

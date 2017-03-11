@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Todolist.Uwp.Helpers;
+using Todolist.Portable.Models;
+using Todolist.Portable.Helpers;
 using Todolist.Uwp.Models;
 
 namespace Todolist.Uwp.ViewModels
