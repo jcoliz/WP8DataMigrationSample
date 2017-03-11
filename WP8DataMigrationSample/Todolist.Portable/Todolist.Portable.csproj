@@ -39,7 +39,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\RangeObservableCollection.cs" />
     <Compile Include="Models\TodoItem.cs" />
