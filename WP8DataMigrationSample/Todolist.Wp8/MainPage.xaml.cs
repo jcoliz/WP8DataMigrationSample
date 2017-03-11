@@ -8,34 +8,40 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Todolist.Wp8.Resources;
+using Todolist.Wp8.Models;
+using Todolist.Wp8.ViewModels;
 
 namespace Todolist.Wp8
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        public MainViewModel VM { get; } = new MainViewModel();
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
+            DataContext = this;
         }
 
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            VM.Load();
 
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
+            base.OnNavigatedTo(e);
+        }
 
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            var item = checkbox.DataContext as TodoItem;
+            if (null != item)
+            {
+                // This event fires BEFORE the change gets updated in the model
+                item.Checked = checkbox.IsChecked;
+                // Persist the change to DB
+                VM.Update(item);
+            }
+        }
     }
 }

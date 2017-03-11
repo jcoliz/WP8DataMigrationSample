@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Todolist.Wp8.Resources;
+using Todolist.Wp8.Models;
 
 namespace Todolist.Wp8
 {
@@ -35,6 +36,15 @@ namespace Todolist.Wp8
             // Language display initialization
             InitializeLanguage();
 
+            // Create the database if it does not exist
+            using (var db = new TodoDbContext(TodoDbContext.DBConnectionString))
+            {
+                if (db.DatabaseExists() == false)
+                {
+                    //Create the database
+                    db.CreateDatabase();
+                }
+            }
             // Show graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {
