@@ -11,7 +11,7 @@
     Publisher="CN=jcoliz"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="e8bfa111-00b3-4d68-ab6a-031934176711" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="30b3c033-89db-417a-82d3-6e71f5ac5c12" PhonePublisherId="8de4ef49-5b72-47e8-9dcc-4cae195ad5d1"/>
 
   <Properties>
     <DisplayName>Todolist.Uwp</DisplayName>
