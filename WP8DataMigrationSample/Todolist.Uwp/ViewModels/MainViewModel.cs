@@ -40,6 +40,15 @@ namespace Todolist.Uwp.ViewModels
             }
         });
 
+        public void Update(TodoItem item)
+        {
+            using (var db = new TodoDbContext())
+            {
+                db.Items.Update(item);
+                db.SaveChanges();
+            }
+        }
+
         protected void Add(TodoItem item)
         {
             Items.Add(item);

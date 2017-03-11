@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Todolist.Uwp.Models;
 using Todolist.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -35,6 +36,18 @@ namespace Todolist.Uwp
             VM.Load();
 
             base.OnNavigatedTo(e);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var checkbox = sender as CheckBox;
+            var item = checkbox.DataContext as TodoItem;
+            if (null != item)
+            {
+                item.Checked = checkbox.IsChecked;
+                // Persist the change to DB
+                VM.Update(item);
+            }
         }
     }
 }

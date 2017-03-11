@@ -11,7 +11,7 @@
     <Page.Resources>
         <DataTemplate x:DataType="m:TodoItem" x:Key="TodoItemDisplay">
             <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{x:Bind Checked,Mode=TwoWay}"/>
+                <CheckBox IsChecked="{x:Bind Checked,Mode=TwoWay}" Checked="CheckBox_Checked"/>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{x:Bind Name}" FontWeight="Bold"/>
                     <TextBlock>
