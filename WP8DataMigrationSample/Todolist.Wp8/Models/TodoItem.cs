@@ -9,84 +9,88 @@ using System.ComponentModel;
 
 namespace Todolist.Wp8.Models
 {
+    /// <summary>
+    /// Presents a Todolist.Portable.Model to the WP8 data system.
+    /// </summary>
+    /// <remarks>
+    /// We cannot use a portable model directly, because the public properties require markup
+    /// </remarks>
     [Table]
     public class TodoItem : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        private Todolist.Portable.Models.TodoItem _Item = new Todolist.Portable.Models.TodoItem();
+
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public int Id
         {
             get
             {
-                return _Id;
+                return _Item.Id;
             }
             set
             {
-                if (_Id != value)
+                if (_Item.Id != value)
                 {
                     NotifyPropertyChanging(nameof(Id));
-                    _Id = value;
+                    _Item.Id = value;
                     NotifyPropertyChanged(nameof(Id));
                 }
             }
         }
-        private int _Id;
 
         [Column]
         public string Name
         {
             get
             {
-                return _Name;
+                return _Item.Name;
             }
             set
             {
-                if (_Name != value)
+                if (_Item.Name != value)
                 {
                     NotifyPropertyChanging(nameof(Name));
-                    _Name = value;
+                    _Item.Name = value;
                     NotifyPropertyChanged(nameof(Name));
                 }
             }
         }
-        private string _Name;
 
         [Column]
         public bool? Checked
         {
             get
             {
-                return _Checked;
+                return _Item.Checked;
             }
             set
             {
-                if (_Checked != value)
+                if (_Item.Checked != value)
                 {
                     NotifyPropertyChanging(nameof(Checked));
-                    _Checked = value;
+                    _Item.Checked = value;
                     NotifyPropertyChanged(nameof(Checked));
                 }
             }
         }
-        private bool? _Checked;
 
         [Column]
         public DateTime Created
         {
             get
             {
-                return _Created;
+                return _Item.Created;
             }
             set
             {
-                if (_Created != value)
+                if (_Item.Created != value)
                 {
                     NotifyPropertyChanging(nameof(Created));
-                    _Created = value;
+                    _Item.Created = value;
                     NotifyPropertyChanged(nameof(Created));
                 }
             }
         }
-        private DateTime _Created;
 
 #pragma warning disable 169
         // Version column aids update performance.

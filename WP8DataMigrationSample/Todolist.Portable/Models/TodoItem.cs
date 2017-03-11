@@ -9,6 +9,9 @@ namespace Todolist.Portable.Models
     /// <summary>
     /// A single todo item
     /// </summary>
+    /// <remarks>
+    /// This model is used by all platforms in this project to represent a todo item
+    /// </remarks>
     public class TodoItem
     {
         public int Id { get; set; }
