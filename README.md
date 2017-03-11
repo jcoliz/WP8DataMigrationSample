@@ -1,6 +1,6 @@
 # Abstract
 
-This is a sample demonstrating how to migrate local database from Windows Phone to a UWP app. 
+This is a sample demonstrating how to migrate a local database from Windows Phone to a UWP app using an Azure Cloud Service.
 
 # Problem
 
